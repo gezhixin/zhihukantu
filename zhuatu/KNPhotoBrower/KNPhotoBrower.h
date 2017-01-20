@@ -1,0 +1,88 @@
+//
+//  KNPhotoBrower.h
+//  KNPhotoBrower
+//
+//  Created by LuKane on 16/8/18.
+//  Copyright © 2016年 LuKane. All rights reserved.
+//
+
+/**
+ *  如果 bug ,希望各位在 github 上通过'邮箱' 或者直接 issue 指出, 谢谢
+ *  github地址 :https://github.com/LuKane/KNPhotoBrower
+ *  目前 KNPhotoBrower 支持 九宫格图片样式, 后期会提供 collectionView , ScrollView 样式
+ */
+
+
+#import <UIKit/UIKit.h>
+
+@class KNPhotoBrower;
+
+@protocol KNPhotoBrowerDelegate <NSObject>
+
+@optional
+/* PhotoBrower 即将消失 */
+- (void)photoBrowerWillDismiss;
+
+/* PhotoBrower 右上角按钮的点击 */
+- (void)photoBrower:(KNPhotoBrower*)brower menuClikedAtPage:(NSInteger)page;
+
+- (void)photoBrower:(KNPhotoBrower*)brower collectClikedAtPage:(NSInteger)page;
+
+/* PhotoBrower 保存图片是否成功 */
+- (void)photoBrowerWriteToSavedPhotosAlbumStatus:(BOOL)success;
+
+- (void)photoBrower:(KNPhotoBrower *)view showedAtIndex:(NSInteger)index;
+
+@required
+- (UIImageView *)photoBrower:(KNPhotoBrower *)view currentBackImageView:(NSInteger)index;
+
+@end
+
+@protocol KNPhotoBrowerDataSource  <NSObject>
+
+- (int)photoBrowerItemCount;
+- (NSString *)photoBrower:(KNPhotoBrower *)veiw iamgeFilePathAtIndex:(int)index;
+
+@end
+
+@interface KNPhotoBrower : UIView
+/**
+ *  当前图片的下标
+ */
+@property (nonatomic, assign) NSInteger currentIndex;
+/**
+ *  存放图片的模型 :url && UIView
+ */
+@property (nonatomic, weak) id<KNPhotoBrowerDataSource> dataSource;
+/**
+ *  存放 ActionSheet 弹出框的内容 :NSString类型
+ */
+@property (nonatomic, strong) NSMutableArray *actionSheetArr;
+/**
+ *  是否需要右上角的按钮. Default is YES;
+ */
+@property (nonatomic, assign) BOOL isNeedRightTopBtn;
+/**
+ *  是否需要 顶部 1 / 9 控件 ,Default is YES
+ */
+@property (nonatomic, assign) BOOL isNeedPageNumView;
+/**
+ *  是否需要 底部 UIPageControl, Default is NO
+ */
+@property (nonatomic, assign) BOOL isNeedPageControl;
+
+@property (nonatomic, weak  ) id<KNPhotoBrowerDelegate> delegate;
+
+- (void)reload;
+
+/**
+ *  展现
+ */
+- (void)present;
+/**
+ *  消失
+ */
+- (void)dismiss;
+
+
+@end
