@@ -413,6 +413,10 @@ class ViewController: BaseViewController, UIGestureRecognizerDelegate  {
                                                         if FileManager.default.fileExists(atPath: image.headerImagePath) {
                                                             try FileManager.default.removeItem(atPath: image.headerImagePath)
                                                         }
+                                                        
+                                                        try strongSelf.realm.write {
+                                                            strongSelf.realm.delete(image)
+                                                        }
                                                     }
                                                 }
                                                 try strongSelf.realm.write {
