@@ -48,7 +48,7 @@ class ViewController: BaseViewController, UIGestureRecognizerDelegate  {
             backgroundTitleLabel.textAlignment = .center
             backgroundTitleLabel.textColor = UIColor(hex: 0x666666)
             backgroundTitleLabel.font = UIFont.systemFont(ofSize: 14)
-            backgroundTitleLabel.text = "空空无一物"
+            backgroundTitleLabel.text = "空空如也"
             self.view.addSubview(backgroundTitleLabel)
             backgroundTitleLabel.frame = CGRect(x: 0, y: self.view.yd_height / 2 - 90, width: self.view.yd_width, height: 40)
         } else {
